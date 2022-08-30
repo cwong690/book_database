@@ -1,16 +1,5 @@
 """
-A program that stores book information:
-- Title, Author
-- Year, ISBN
-
-User can:
-- View all records
-- Search an entry
-- Add an entry
-- Update entry
-- Delete
-- Close
-
+A program that takes user input gram value and convert to kilogram, pound and ounce
 """
 
 # import library to create the GUI
