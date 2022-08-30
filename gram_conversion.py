@@ -11,9 +11,9 @@ window = Tk()
 # Function for calculating values
 def from_g():
     # Gets user input and convert to kilogram, pounds and ounces
-    kgram = float(e1_value.get())*1000
-    pound = float(e1_value.get())*2.20462
-    ounce = float(e1_value.get())*35.274
+    kgram = round(float(e1_value.get())*1000, 2)
+    pound = round(float(e1_value.get())*2.20462, 2)
+    ounce = round(float(e1_value.get())*35.274, 2)
 
     # Adds created values to a text box, removing previous text if present
     t1.delete("1.0", END)
