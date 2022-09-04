@@ -4,6 +4,7 @@ Allows users to view all records, search/add/update entry, delete and close
 """
 
 from tkinter import *
+import backend
 
 window=Tk()
 
