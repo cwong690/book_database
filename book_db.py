@@ -8,14 +8,17 @@ from backend import *
 
 # Create functions that can be inputted into the buttons command. This ensures the command won't run until buttons are pressed
 def get_selected_row(event):
-    # Grabs index of selected tuple and creates global variable to be used by delete_command
-    global selected_tuple
-    index = list1.curselection()[0]
-    selected_tuple = list1.get(index)
-    # Populates entry boxes with selected values
-    for k, v in zip([e1,e2,e3,e4], selected_tuple[1:]):
-        k.delete(0,END)
-        k.insert(END, v)
+    # Grabs index of selected tuple and creates global variable to be used by delete_command. If selecting empty listbox, return nothing
+    try:
+        global selected_tuple
+        index = list1.curselection()[0]
+        selected_tuple = list1.get(index)
+        # Populates entry boxes with selected values
+        for k, v in zip([e1,e2,e3,e4], selected_tuple[1:]):
+            k.delete(0,END)
+            k.insert(END, v)
+    except IndexError:
+        pass
 
 def view_command():
     list1.delete(0,END)
@@ -34,14 +37,20 @@ def add_command():
     list1.delete(0,END)
     list1.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
 
-# def update_command():
+def clear_command():
+    for i in [e1,e2,e3,e4]:
+        i.delete(0,END)
 
+def update_command():
+    update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    view_command()
 
 def delete_command():
     delete(selected_tuple[0])
     view_command()
 
 window=Tk()
+window.wm_title("Book Store")
 
 # Create labels for entry boxes
 l1 = Label(window, text="Title")
@@ -72,11 +81,11 @@ e4.grid(row=1, column=3)
 
 # Create list box
 list1 = Listbox(window, height=6, width=35)
-list1.grid(row=2, column=0, rowspan=6, columnspan=2)
+list1.grid(row=2, column=0, rowspan=7, columnspan=2)
 
 # Create scrollbar then configure to listbox
 sb1 = Scrollbar(window)
-sb1.grid(row=2, column=2, rowspan=6)
+sb1.grid(row=2, column=2, rowspan=7)
 list1.configure(yscrollcommand=sb1.set)
 sb1.configure(command=list1.yview)
 
@@ -90,11 +99,13 @@ b2=Button(window, text="Search Entry", width=12, command=search_command)
 b2.grid(row=3, column=3)
 b3=Button(window, text="Add Entry", width=12, command=add_command)
 b3.grid(row=4, column=3)
-b4=Button(window, text="Update", width=12)
+b4=Button(window, text="Clear All", width=12, command=clear_command)
 b4.grid(row=5, column=3)
-b5=Button(window, text="Delete", width=12, command=delete_command)
+b5=Button(window, text="Update", width=12, command=update_command)
 b5.grid(row=6, column=3)
-b6=Button(window, text="Close", width=12)
+b6=Button(window, text="Delete", width=12, command=delete_command)
 b6.grid(row=7, column=3)
+b7=Button(window, text="Close", width=12, command=window.destroy)
+b7.grid(row=8, column=3)
 
 window.mainloop()
