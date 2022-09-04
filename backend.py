@@ -8,7 +8,7 @@ def connect():
     conn.commit()
     conn.close()
 
-def insert(title, author, year, isbn):
+def add_entry(title, author, year, isbn):
     # Add Entry button to add additional records
     conn = sqlite3.connect("books.db")
     cur = conn.cursor()
