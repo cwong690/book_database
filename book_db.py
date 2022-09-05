@@ -109,3 +109,7 @@ b7=Button(window, text="Close", width=12, command=window.destroy)
 b7.grid(row=8, column=3)
 
 window.mainloop()
+
+# # Creates exe app file in terminal
+# pip install pyinstaller
+# pyinstaller --onefile --windowed book_db.py
